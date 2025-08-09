@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="calculator-wrapper">
+            <div class="calculator-header">
+                <h1><i class="fas fa-calculator"></i> Dynamic Calculator</h1>
+                <div class="mode-toggle">
+                    <button id="basic-mode" class="mode-btn active">Basic</button>
+                    <button id="scientific-mode" class="mode-btn">Scientific</button>
+                </div>
+            </div>
+            
+            <div class="calculator">
+                <!-- Display Section -->
+                <div class="display-section">
+                    <div class="history-display" id="history-display"></div>
+                    <div class="main-display">
+                        <input type="text" id="display" readonly value="0" class="display-input">
+                    </div>
+                    <div class="memory-indicator" id="memory-indicator">
+                        <i class="fas fa-memory"></i>
+                        <span id="memory-value">0</span>
+                    </div>
+                </div>
+
+                <!-- Button Grid -->
+                <div class="button-grid" id="button-grid">
+                    <!-- Memory Functions -->
+                    <div class="memory-row">
+                        <button class="btn memory-btn" data-action="memory-clear">MC</button>
+                        <button class="btn memory-btn" data-action="memory-recall">MR</button>
+                        <button class="btn memory-btn" data-action="memory-add">M+</button>
+                        <button class="btn memory-btn" data-action="memory-subtract">M-</button>
+                        <button class="btn memory-btn" data-action="memory-store">MS</button>
+                    </div>
+
+                    <!-- Scientific Functions (Hidden by default) -->
+                    <div class="scientific-row" id="scientific-functions">
+                        <button class="btn function-btn" data-value="sin(">sin</button>
+                        <button class="btn function-btn" data-value="cos(">cos</button>
+                        <button class="btn function-btn" data-value="tan(">tan</button>
+                        <button class="btn function-btn" data-value="log(">log</button>
+                        <button class="btn function-btn" data-value="ln(">ln</button>
+                    </div>
+
+                    <!-- Main Calculator Buttons -->
+                    <div class="main-buttons">
+                        <!-- Row 1 -->
+                        <button class="btn clear-btn" data-action="clear-all">C</button>
+                        <button class="btn clear-btn" data-action="clear-entry">CE</button>
+                        <button class="btn operator-btn" data-action="backspace">⌫</button>
+                        <button class="btn operator-btn" data-value="/">÷</button>
+
+                        <!-- Row 2 -->
+                        <button class="btn number-btn" data-value="7">7</button>
+                        <button class="btn number-btn" data-value="8">8</button>
+                        <button class="btn number-btn" data-value="9">9</button>
+                        <button class="btn operator-btn" data-value="*">×</button>
+
+                        <!-- Row 3 -->
+                        <button class="btn number-btn" data-value="4">4</button>
+                        <button class="btn number-btn" data-value="5">5</button>
+                        <button class="btn number-btn" data-value="6">6</button>
+                        <button class="btn operator-btn" data-value="-">-</button>
+
+                        <!-- Row 4 -->
+                        <button class="btn number-btn" data-value="1">1</button>
+                        <button class="btn number-btn" data-value="2">2</button>
+                        <button class="btn number-btn" data-value="3">3</button>
+                        <button class="btn operator-btn" data-value="+">+</button>
+
+                        <!-- Row 5 -->
+                        <button class="btn function-btn" data-value="sqrt(">√</button>
+                        <button class="btn number-btn" data-value="0">0</button>
+                        <button class="btn number-btn" data-value=".">.</button>
+                        <button class="btn equals-btn" data-action="calculate">=</button>
+
+                        <!-- Additional Functions -->
+                        <button class="btn function-btn" data-value="^">x^y</button>
+                        <button class="btn function-btn" data-value="%">%</button>
+                        <button class="btn function-btn" data-value="(">(</button>
+                        <button class="btn function-btn" data-value=")">)</button>
+                    </div>
+                </div>
+
+                <!-- History Panel -->
+                <div class="history-panel" id="history-panel">
+                    <div class="history-header">
+                        <h3><i class="fas fa-history"></i> History</h3>
+                        <button class="btn clear-btn" id="clear-history">Clear</button>
+                    </div>
+                    <div class="history-list" id="history-list">
+                        <p class="no-history">No calculations yet</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toggle History Button -->
+            <button class="history-toggle" id="history-toggle">
+                <i class="fas fa-history"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div class="modal" id="error-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-exclamation-triangle"></i> Error</h3>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="error-message"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/calculator.js') }}"></script>
+</body>
+</html>
